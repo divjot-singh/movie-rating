@@ -1,0 +1,26 @@
+.snackbarContainer {
+  position: fixed;
+  bottom: 20%;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  .snackbar {
+    padding: 1rem;
+    min-width: 20rem;
+    text-align: center;
+    color: white;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    &.error {
+      background: red;
+    }
+    &.info {
+      background: blue;
+    }
+    &.success {
+      background: green;
+    }
+  }
+}

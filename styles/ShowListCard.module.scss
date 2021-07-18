@@ -1,0 +1,52 @@
+.showCard {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  width: 100%;
+  position: relative;
+  margin-right: 2rem;
+  max-width: 342px;
+  cursor: pointer;
+  .showCardBanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 1rem 1rem 0 0;
+    background: linear-gradient(to top, #ece9e6, white);
+  }
+  .showCardContent {
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+    padding: 1rem 1.4rem;
+    background: linear-gradient(to top, rgb(236, 233, 230), rgb(255, 255, 255));
+    border-radius: 0 0 1rem 1rem;
+    color: #302c71;
+    .label {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    .showCardTitle {
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+    .showCardGenres {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      font-size: 1.2rem;
+      span {
+        margin: 0 0.4rem;
+      }
+    }
+    .showCardYear {
+      margin-top: 1rem;
+    }
+    .showCardRating {
+      margin-top: 1rem;
+    }
+  }
+}
