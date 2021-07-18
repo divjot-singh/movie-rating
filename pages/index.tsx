@@ -33,29 +33,29 @@ export async function getStaticProps(): Promise<
   GetStaticPropsResult<HomePageProps>
 > {
   const response: any = await NetworkUtil.get(API_URLS.get_most_popular_movies);
-  //   const movies: MovieDetails[] = [],
-  //     moviesList: string[] = [];
-  //   if (Array.isArray(response)) {
-  //     for (let i = 0; i < Math.min(response.length, 10); i++) {
-  //       const moviePath: string = response[i];
-  //       const pathArray = moviePath.split("/");
-  //       const movieId = pathArray[pathArray.length - 2];
-  //       moviesList.push(movieId);
-  //       console.log(movieId);
-  //       const details: any = await NetworkUtil.get(API_URLS.get_details, {
-  //         tconst: movieId,
-  //       });
-  //       if (details.type !== "error") {
-  //         details["imdbId"] = movieId;
-  //         movies.push(details as MovieDetails);
-  //       }
-  //     }
-  //   }
-  const movies: MovieDetails[] = tempData;
-  const moviesList = Titles.map((title: string) => {
-    const titleArray = title.split("/");
-    return titleArray[titleArray.length - 2];
-  });
+  const movies: MovieDetails[] = [],
+    moviesList: string[] = [];
+  if (Array.isArray(response)) {
+    for (let i = 0; i < Math.min(response.length, 10); i++) {
+      const moviePath: string = response[i];
+      const pathArray = moviePath.split("/");
+      const movieId = pathArray[pathArray.length - 2];
+      moviesList.push(movieId);
+      console.log(movieId);
+      const details: any = await NetworkUtil.get(API_URLS.get_details, {
+        tconst: movieId,
+      });
+      if (details.type !== "error") {
+        details["imdbId"] = movieId;
+        movies.push(details as MovieDetails);
+      }
+    }
+  }
+  //   const movies: MovieDetails[] = tempData;
+  //   const moviesList = Titles.map((title: string) => {
+  //     const titleArray = title.split("/");
+  //     return titleArray[titleArray.length - 2];
+  //   });
   return {
     props: {
       movies: movies || [],

@@ -55,20 +55,20 @@ export const getStaticProps = async (
 ): Promise<GetStaticPropsResult<MovieDetailsProps> | undefined> => {
   const movieId: string = (context?.params?.movieId as string) || "";
   if (movieId) {
-    // const details: any = await NetworkUtil.get(API_URLS.get_details, {
-    //   tconst: movieId,
-    // });
-    // if (details.type !== "error") {
-    //	 details['tmdbId'] = movieId;
-    //   return {
-    //     props: {
-    //       movie: details as MovieDetails,
-    //     },
-    //   };
-    // }
-    const details = tempData.find((movie: MovieDetails) => {
-      return movie.id.includes(movieId);
+    const details: any = await NetworkUtil.get(API_URLS.get_details, {
+      tconst: movieId,
     });
+    if (details.type !== "error") {
+      details["tmdbId"] = movieId;
+      return {
+        props: {
+          movie: details as MovieDetails,
+        },
+      };
+    }
+    // const details = tempData.find((movie: MovieDetails) => {
+    //   return movie.id.includes(movieId);
+    // });
     return {
       props: {
         movie: details as MovieDetails,
