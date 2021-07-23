@@ -12,7 +12,6 @@ const CommonComponents = ({
   snackbarData,
   loaderData,
 }: PageProps): JSX.Element => {
-  console.log(loaderData);
   return (
     <div>
       <Snackbar snackbarData={snackbarData} />

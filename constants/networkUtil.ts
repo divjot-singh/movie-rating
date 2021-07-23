@@ -33,6 +33,7 @@ class NetworkUtil {
     }
   }
   static async get(url: string, data: any = {}): Promise<Object | Error> {
+    console.log(url);
     const uri = new URL(url);
     const searchParams = data;
     uri.search = new URLSearchParams(searchParams).toString();

@@ -13,7 +13,7 @@
     top: 0;
     left: 0;
     border-radius: 1rem 1rem 0 0;
-    background: linear-gradient(to top, #ece9e6, white);
+    background: linear-gradient(to bottom, #ece9e6, white);
   }
   .showCardContent {
     top: 0;
@@ -38,15 +38,22 @@
       justify-content: flex-start;
       flex-wrap: wrap;
       font-size: 1.2rem;
-      span {
-        margin: 0 0.4rem;
+      .genreText {
+        display: inline-flex;
+        span {
+          margin: 0 0.4rem;
+        }
       }
     }
-    .showCardYear {
-      margin-top: 1rem;
-    }
+    .showCardYear,
+    .releaseStatus,
     .showCardRating {
       margin-top: 1rem;
+    }
+    .releaseStatus {
+      span {
+        font-weight: 600;
+      }
     }
   }
 }

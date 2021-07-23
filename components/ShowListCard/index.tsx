@@ -1,19 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEventHandler } from "react";
-import MovieDetails from "../../models/movieDetails";
+import { Filters } from "../../constants/constants";
+import { getProperImageUrl } from "../../constants/utils";
+import InTheaterTitle from "../../models/inTheaterTitle";
+import TitleInfo from "../../models/titleInfo";
 import styles from "../../styles/ShowListCard.module.scss";
 
 interface ShowListCardProps {
-  show: MovieDetails;
+  title: InTheaterTitle | TitleInfo;
+  filter?: Filters;
 }
 
-const ShowListCard = ({ show }: ShowListCardProps) => {
+const ShowListCard = ({ title, filter }: ShowListCardProps) => {
   return (
-    <Link href={`/details/${show.imdbId}`} passHref>
+    <Link href={`/details/${title.id}`} passHref>
       <div className={styles.showCard}>
         <Image
-          src={show.title.image.url}
+          src={getProperImageUrl(title.image)}
           alt="poster"
           layout={"intrinsic"}
           height={513}
@@ -21,26 +24,51 @@ const ShowListCard = ({ show }: ShowListCardProps) => {
           className={styles.showCardBanner}
         />
         <div className={styles.showCardContent}>
-          <h2 className={styles.showCardTitle}>{show.title.title}</h2>
-          <div className={styles.showCardGenres}>
-            {show.genres.map((genre: string, index: number) => {
+          <h2 className={styles.showCardTitle}>{title.title}</h2>
+          {(() => {
+            if (title instanceof InTheaterTitle) {
               return (
-                <>
-                  <div key={genre}>{genre}</div>
-                  <span key={genre + "|"}>
-                    {index < show.genres.length - 1 ? "|" : ""}
-                  </span>
-                </>
+                <div className={styles.showCardGenres}>
+                  {title.genres.split(", ").join(" | ")}
+                </div>
               );
-            })}
-          </div>
+            }
+          })()}
+
           <div className={styles.showCardYear}>
-            <span className={styles.label}>Year:</span> {show.title.year}
+            <span className={styles.label}>Year:</span> {title.year}
           </div>
-          <div className={styles.showCardRating}>
-            <span className={styles.label}>IMDB Rating:</span>{" "}
-            {show.ratings.rating}
-          </div>
+
+          {title.imDbRating && (
+            <div className={styles.showCardRating}>
+              <span className={styles.label}>IMDB Rating:</span>{" "}
+              {title.imDbRating}
+            </div>
+          )}
+          {(() => {
+            if (title instanceof InTheaterTitle) {
+              let text: JSX.Element;
+              if (filter === Filters.coming_soon) {
+                text = (
+                  <>
+                    Releasing on - <span>{title.releaseState}</span>
+                  </>
+                );
+              } else {
+                let statusParts: string[] = title.releaseState.split("-");
+                if (statusParts.length > 0) {
+                  text = (
+                    <>
+                      {statusParts[0]} - <span>{statusParts[1]}</span>
+                    </>
+                  );
+                } else {
+                  text = <>statusParts</>;
+                }
+              }
+              return <div className={styles.releaseStatus}>{text}</div>;
+            }
+          })()}
         </div>
       </div>
     </Link>

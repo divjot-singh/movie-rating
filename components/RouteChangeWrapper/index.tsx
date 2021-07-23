@@ -10,11 +10,9 @@ const RouteChangeWrapper = () => {
     useCommonComponents();
 
   const handleRouteChangeComplete = () => {
-    console.log("page loaded");
     commonComponentsState.hideLoader();
   };
   const handleRouteChangeStart = () => {
-    console.log("page loading");
     commonComponentsState.showLoader("Loading...");
   };
 

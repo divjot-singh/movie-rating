@@ -56,7 +56,6 @@ export const CommonComponentsProvider = ({
     });
   };
   const hideLoader = () => {
-    console.log("hiding loader");
     setLoaderData(defaultLoaderData);
   };
   const hideSnackbar = () => {
