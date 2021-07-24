@@ -20,7 +20,7 @@ const PosterComponent = ({
     let trailerComponent: JSX.Element = (
       <div className={styles.startTrailer}>
         <iframe
-          src={`${trailer.linkEmbed}?width=640`}
+          src={`${trailer.linkEmbed}?width=640&autoplay=${showTrailerIframe}`}
           width="640"
           height="360"
           allowFullScreen={true}
