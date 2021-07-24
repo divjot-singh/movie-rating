@@ -5,16 +5,23 @@ import {
   GetStaticPropsResult,
 } from "next";
 import MovieDetailsComponent from "../../components/MovieDetails";
-import { API_URLS, SomeTitles } from "../../constants/constants";
+import {
+  API_URLS,
+  SomeTitles,
+  TempTitleData,
+  TempTrailerData,
+} from "../../constants/constants";
 import NetworkUtil from "../../constants/networkUtil";
 import MovieDetails, { MovieDetailsInterface } from "../../models/movieDetails";
+import TrailerData, { TrailerDataInterface } from "../../models/trailer";
 
 interface MovieDetailsProps {
   movie: MovieDetailsInterface | null;
+  trailer: TrailerDataInterface | null;
   error?: Error;
 }
 
-const MovieDetailPage = ({ movie, error }: MovieDetailsProps) => {
+const MovieDetailPage = ({ movie, error, trailer }: MovieDetailsProps) => {
   if (!movie)
     return (
       <div>
@@ -22,8 +29,14 @@ const MovieDetailPage = ({ movie, error }: MovieDetailsProps) => {
       </div>
     );
   const movieDetails = new MovieDetails(movie);
+  const trailerDetails = trailer ? new TrailerData(trailer) : null;
   MovieDetailsComponent;
-  return <MovieDetailsComponent movieDetails={movieDetails} />;
+  return (
+    <MovieDetailsComponent
+      movieDetails={movieDetails}
+      trailer={trailerDetails}
+    />
+  );
 };
 
 export const getStaticPaths: GetStaticPaths =
@@ -46,20 +59,31 @@ export const getStaticProps = async (
 ): Promise<GetStaticPropsResult<MovieDetailsProps> | undefined> => {
   const titleId: string = (context?.params?.titleId as string) || "";
   console.log(titleId);
+  //   return {
+  //     props: {
+  //       movie: TempTitleData,
+  //       trailer: TempTrailerData,
+  //     },
+  //   };
   if (titleId) {
     const url = API_URLS.get_details.replace(":titleId", titleId);
     const details: any = await NetworkUtil.get(url);
+    const trailerUrl = API_URLS.get_trailer.replace(":titleId", titleId);
+    const trailer: any = await NetworkUtil.get(trailerUrl);
     if (details.type !== "error") {
       return {
         props: {
           movie: details,
+          trailer: trailer.type !== "error" ? trailer : null,
         },
       };
     }
+    console.log("lalala");
     return {
       props: {
         movie: null,
         error: details,
+        trailer: null,
       },
     };
   }

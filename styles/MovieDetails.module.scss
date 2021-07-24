@@ -1,0 +1,192 @@
+.container {
+  padding: 1.6rem 2rem;
+  background: #ece9e6;
+  margin: 1rem 5rem;
+  border-radius: 4rem;
+  width: 944px;
+  box-sizing: border-box;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    .titleInfo {
+      .title {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+      .info {
+        font-size: 1.4rem;
+        font-weight: normal;
+        margin-top: 1rem;
+      }
+    }
+    .ratingInfo {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      font-size: 1rem;
+      font-weight: normal;
+      .imdbRating {
+        display: flex;
+        flex-flow: column;
+        margin-right: 1rem;
+        .label {
+          font-size: 1.4rem;
+          font-weight: bold;
+        }
+        .imdbRatingInfo {
+          display: flex;
+          justify-content: center;
+          margin-top: 0.4rem;
+          svg {
+            color: #e6b505;
+            align-self: flex-end;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+          }
+          .ratingAndVotesContainer {
+            display: flex;
+            flex-flow: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin-right: 2px;
+            .rating {
+              font-weight: bold;
+              font-size: 1.6rem;
+              line-height: 2rem;
+            }
+            .votes {
+              font-size: 0.8rem;
+              line-height: 1.4rem;
+            }
+          }
+          .perTen {
+            line-height: 2rem;
+          }
+        }
+      }
+    }
+  }
+  .trailerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .startTrailer {
+      height: 360px;
+      .hide {
+        display: none;
+      }
+      .startTrailerImage {
+        height: 100%;
+        position: relative;
+        svg {
+          height: 100%;
+          width: 100%;
+          height: 4rem;
+          width: 4rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: transparent;
+          z-index: 1;
+          cursor: pointer;
+        }
+        .playOverlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background: black;
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+  .details {
+    margin-top: 2rem;
+    .genres {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+      .genre {
+        margin-right: 1rem;
+        padding: 0.4rem 0.8rem;
+        border: 1px solid black;
+        border-radius: 1rem;
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+    .synopsis {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+    .directorsContainer {
+      .directorsList {
+        margin-left: 0.4rem;
+        font-size: 1.2rem;
+        line-height: 2rem;
+        span {
+          color: #0094ff;
+          cursor: pointer;
+        }
+      }
+    }
+    .awards,
+    .tvSeriesInfo {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .tvSeriesInfo {
+      text-align: left;
+    }
+    .actorsListContainer {
+      .actorsList {
+        display: flex;
+        overflow: auto;
+
+        .actorCard {
+          margin-right: 1rem;
+          cursor: pointer;
+          .actorImage {
+            height: 8rem;
+            width: 8rem;
+            border-radius: 50%;
+          }
+          .actorName {
+            display: block;
+            font-size: 1rem;
+            margin-top: 0.4rem;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  .label {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+  }
+  .similarListContainer {
+    margin-top: 2rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 2rem;
+    .similarsList {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+}

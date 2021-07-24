@@ -4,5 +4,5 @@ export interface KeyValuePairs {
 }
 export interface IdNamePairs {
   id: string;
-  value: string;
+  name: string;
 }

@@ -15,7 +15,7 @@ export interface MovieDetailsInterface {
   runtimeStr: string;
   plot: string;
   plotLocal: string;
-  plotLocalIsRtl: string;
+  plotLocalIsRtl: string | boolean;
   awards: string;
   directors: string;
   directorList: IdNamePairs[];
@@ -24,7 +24,7 @@ export interface MovieDetailsInterface {
   stars: string;
   starList: IdNamePairs[];
   actorList: { id: string; name: string; image: string; asCharacter: string }[];
-  fullCast: object;
+  fullCast: object | null;
   genres: string;
   genreList: KeyValuePairs[];
   companies: string;
@@ -51,7 +51,7 @@ interface TvSeriesInfoInterface {
   yearEnd: string;
   creators: string;
   seasons: string[];
-  creatorsList: IdNamePairs[];
+  creatorsList?: IdNamePairs[];
 }
 
 interface TvEpisodeInfoInterface {
@@ -100,7 +100,7 @@ class TvSeriesInfo {
   yearEnd: string;
   creators: string;
   seasons: string[];
-  creatorsList: IdNamePairs[];
+  creatorsList?: IdNamePairs[];
   constructor(data: TvSeriesInfoInterface) {
     this.yearEnd = data.yearEnd;
     this.creators = data.creators;
@@ -135,7 +135,7 @@ export default class MovieDetails {
   runtimeStr: string;
   plot: string;
   plotLocal: string;
-  plotLocalIsRtl: string;
+  plotLocalIsRtl: boolean | string;
   awards: string;
   directors: string;
   directorList: IdNamePairs[];
@@ -144,7 +144,7 @@ export default class MovieDetails {
   stars: string;
   starList: IdNamePairs[];
   actorList: { id: string; name: string; image: string; asCharacter: string }[];
-  fullCast: object;
+  fullCast: object | null;
   genres: string;
   genreList: KeyValuePairs[];
   companies: string;
