@@ -1,7 +1,7 @@
 import TrailerData from "../../models/trailer";
 import Image from "next/image";
 import styles from "../../styles/MovieDetails.module.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlayCircleFilledOutlined } from "@material-ui/icons";
 
 interface PosterComponentProps {
@@ -14,15 +14,20 @@ const PosterComponent = ({
   trailer,
 }: PosterComponentProps): JSX.Element => {
   const [showTrailerIframe, setShowTrailerIframe] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(640);
+  useEffect(() => {
+    if (typeof window !== "undefined")
+      setWindowWidth(Math.floor(Math.min(window.outerWidth * 0.95 - 64, 640)));
+  }, []);
   let childComponent: JSX.Element;
-
+  const windowHeight: number = (9 / 16) * windowWidth;
   if (trailer && trailer.linkEmbed) {
     let trailerComponent: JSX.Element = (
       <div className={styles.startTrailer}>
         <iframe
-          src={`${trailer.linkEmbed}?width=640&autoplay=${showTrailerIframe}`}
-          width="640"
-          height="360"
+          src={`${trailer.linkEmbed}?width=${windowWidth}&autoplay=${showTrailerIframe}`}
+          width={windowWidth}
+          height={windowHeight.toString()}
           allowFullScreen={true}
           frameBorder={"no"}
           scrolling="no"
@@ -37,8 +42,8 @@ const PosterComponent = ({
             src={trailer.thumbnailUrl}
             alt="poster"
             layout={"intrinsic"}
-            height={360}
-            width={640}
+            height={windowHeight.toString()}
+            width={windowWidth}
             className={styles.banner}
           />
 
@@ -55,14 +60,16 @@ const PosterComponent = ({
 
     childComponent = (
       <>
-        <Image
-          src={imageUrl}
-          alt="poster"
-          layout={"intrinsic"}
-          height={360}
-          width={240}
-          className={styles.banner}
-        />
+        <div className={styles.trailerBanner}>
+          <Image
+            src={imageUrl}
+            alt="poster"
+            layout={"intrinsic"}
+            height={360}
+            width={240}
+            className={styles.banner}
+          />
+        </div>
         {trailerComponent}
       </>
     );

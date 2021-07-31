@@ -11,6 +11,8 @@ import {
   TempTitleData,
   TempTrailerData,
 } from "../../constants/constants";
+import Head from "next/head";
+
 import NetworkUtil from "../../constants/networkUtil";
 import MovieDetails, { MovieDetailsInterface } from "../../models/movieDetails";
 import TrailerData, { TrailerDataInterface } from "../../models/trailer";
@@ -32,10 +34,16 @@ const MovieDetailPage = ({ movie, error, trailer }: MovieDetailsProps) => {
   const trailerDetails = trailer ? new TrailerData(trailer) : null;
   MovieDetailsComponent;
   return (
-    <MovieDetailsComponent
-      movieDetails={movieDetails}
-      trailer={trailerDetails}
-    />
+    <>
+      <Head>
+        <title>{movieDetails.fullTitle}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <MovieDetailsComponent
+        movieDetails={movieDetails}
+        trailer={trailerDetails}
+      />
+    </>
   );
 };
 

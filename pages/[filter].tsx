@@ -5,6 +5,7 @@ import {
   GetStaticPropsResult,
 } from "next";
 import Link from "next/link";
+import Head from "next/head";
 import ShowListCard from "../components/ShowListCard";
 import { API_URLS, Filters } from "../constants/constants";
 import NetworkUtil from "../constants/networkUtil";
@@ -29,43 +30,68 @@ const Home = ({ titles, error, filter }: HomeProps) => {
       </h2>
     );
   }
+  const filterEntry: [string, string] | undefined = Object.entries(
+      Filters
+    ).find((entry: [string, string]) => {
+      return entry[0] === filter;
+    }),
+    filterValue: string = filterEntry ? filterEntry[1] : filter;
   return (
-    <div className={styles.container}>
-      <div className={styles.filters}>
-        {Object.entries(Filters).map(
-          ([currentFilterKey, currentFilter]: [key: string, value: string]) => {
-            console.log(currentFilter);
-            return (
-              <Link href={`/${currentFilterKey}`} passHref key={currentFilter}>
-                <div
-                  className={`${styles.filter} ${
-                    filter === currentFilterKey ? styles.selected : ""
-                  }`}
+    <>
+      <Head>
+        <title>{filterValue}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.filters}>
+          {Object.entries(Filters).map(
+            ([currentFilterKey, currentFilter]: [
+              key: string,
+              value: string
+            ]) => {
+              console.log(currentFilter);
+              return (
+                <Link
+                  href={`/${currentFilterKey}`}
+                  passHref
+                  key={currentFilter}
                 >
-                  {currentFilter}
-                </div>
-              </Link>
+                  <div
+                    className={`${styles.filter} ${
+                      filter === currentFilterKey ? styles.selected : ""
+                    }`}
+                  >
+                    {currentFilter}
+                  </div>
+                </Link>
+              );
+            }
+          )}
+        </div>
+        <div className={styles.list}>
+          {titles.map((title: InTheaterTitleInterface | TitleInfoInterface) => {
+            let titleAsClass: TitleInfo | InTheaterTitle;
+            if (
+              filter === Filters.coming_soon ||
+              filter === Filters.in_theatres
+            ) {
+              titleAsClass = new InTheaterTitle(
+                title as InTheaterTitleInterface
+              );
+            } else {
+              titleAsClass = new TitleInfo(title as TitleInfoInterface);
+            }
+            return (
+              <ShowListCard
+                key={title.id}
+                title={titleAsClass}
+                filter={filter}
+              />
             );
-          }
-        )}
+          })}
+        </div>
       </div>
-      <div className={styles.list}>
-        {titles.map((title: InTheaterTitleInterface | TitleInfoInterface) => {
-          let titleAsClass: TitleInfo | InTheaterTitle;
-          if (
-            filter === Filters.coming_soon ||
-            filter === Filters.in_theatres
-          ) {
-            titleAsClass = new InTheaterTitle(title as InTheaterTitleInterface);
-          } else {
-            titleAsClass = new TitleInfo(title as TitleInfoInterface);
-          }
-          return (
-            <ShowListCard key={title.id} title={titleAsClass} filter={filter} />
-          );
-        })}
-      </div>
-    </div>
+    </>
   );
 };
 

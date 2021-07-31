@@ -27,3 +27,15 @@
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .container {
+    .filters {
+      .filter {
+        &:last-child {
+          margin-right: 1.6rem;
+        }
+      }
+    }
+  }
+}
