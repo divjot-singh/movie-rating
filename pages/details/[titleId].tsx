@@ -12,6 +12,7 @@ import {
   TempTrailerData,
 } from "../../constants/constants";
 import Head from "next/head";
+import Filter from "../../components/Filter/filter";
 
 import NetworkUtil from "../../constants/networkUtil";
 import MovieDetails, { MovieDetailsInterface } from "../../models/movieDetails";
@@ -39,6 +40,7 @@ const MovieDetailPage = ({ movie, error, trailer }: MovieDetailsProps) => {
         <title>{movieDetails.fullTitle}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <Filter />
       <MovieDetailsComponent
         movieDetails={movieDetails}
         trailer={trailerDetails}

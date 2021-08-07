@@ -4,7 +4,6 @@ import {
   GetStaticPropsContext,
   GetStaticPropsResult,
 } from "next";
-import Link from "next/link";
 import Head from "next/head";
 import ShowListCard from "../components/ShowListCard";
 import { API_URLS, Filters } from "../constants/constants";
@@ -15,6 +14,7 @@ import InTheaterTitle, {
 import TitleInfo, { TitleInfoInterface } from "../models/titleInfo";
 
 import styles from "../styles/Home.module.scss";
+import Filter from "../components/Filter/filter";
 
 interface HomeProps {
   titles: (InTheaterTitleInterface | TitleInfoInterface)[];
@@ -23,6 +23,7 @@ interface HomeProps {
 }
 
 const Home = ({ titles, error, filter }: HomeProps) => {
+  console.log(error);
   if (error) {
     return (
       <h2>
@@ -43,31 +44,7 @@ const Home = ({ titles, error, filter }: HomeProps) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.filters}>
-          {Object.entries(Filters).map(
-            ([currentFilterKey, currentFilter]: [
-              key: string,
-              value: string
-            ]) => {
-              console.log(currentFilter);
-              return (
-                <Link
-                  href={`/${currentFilterKey}`}
-                  passHref
-                  key={currentFilter}
-                >
-                  <div
-                    className={`${styles.filter} ${
-                      filter === currentFilterKey ? styles.selected : ""
-                    }`}
-                  >
-                    {currentFilter}
-                  </div>
-                </Link>
-              );
-            }
-          )}
-        </div>
+        <Filter filter={filter} />
         <div className={styles.list}>
           {titles.map((title: InTheaterTitleInterface | TitleInfoInterface) => {
             let titleAsClass: TitleInfo | InTheaterTitle;
@@ -112,6 +89,7 @@ export const getStaticProps = async (
 ): Promise<GetStaticPropsResult<HomeProps>> => {
   const filter: Filters = (context?.params?.filter as Filters) || "";
   const data: any = await NetworkUtil.get(API_URLS[filter]);
+  console.log(data);
   if (data.type !== "error") {
     return {
       props: {
